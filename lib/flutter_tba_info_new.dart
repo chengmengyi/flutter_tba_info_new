@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:play_install_referrer/play_install_referrer.dart';
 
 import 'flutter_tba_info_new_platform_interface.dart';
@@ -67,27 +68,44 @@ class FlutterTbaInfoNew {
       };
     }
 
-    final referrerDetails = await PlayInstallReferrer.installReferrer;
     final firstInstallTime = await FlutterTbaInfoNewPlatform.instance
         .getFirstInstallTime();
     final lastUpdateTime = await FlutterTbaInfoNewPlatform.instance
         .getLastUpdateTime();
-    return <String, dynamic>{
-      'build': build,
-      'referrer_click_timestamp_seconds':
-          referrerDetails.referrerClickTimestampSeconds,
-      'install_begin_timestamp_seconds':
-          referrerDetails.installBeginTimestampSeconds,
-      'google_play_instant': referrerDetails.googlePlayInstantParam,
-      'user_agent': userAgent,
-      'install_version': referrerDetails.installVersion ?? '',
-      'last_update_seconds': lastUpdateTime,
-      'install_first_seconds': firstInstallTime,
-      'referrer_url': referrerDetails.installReferrer ?? '',
-      'install_begin_timestamp_server_seconds':
-          referrerDetails.installBeginTimestampServerSeconds,
-      'referrer_click_timestamp_server_seconds':
-          referrerDetails.referrerClickTimestampServerSeconds,
-    };
+
+    try {
+      final referrerDetails = await PlayInstallReferrer.installReferrer;
+      return <String, dynamic>{
+        'build': build,
+        'referrer_click_timestamp_seconds':
+            referrerDetails.referrerClickTimestampSeconds,
+        'install_begin_timestamp_seconds':
+            referrerDetails.installBeginTimestampSeconds,
+        'google_play_instant': referrerDetails.googlePlayInstantParam,
+        'user_agent': userAgent,
+        'install_version': referrerDetails.installVersion ?? '',
+        'last_update_seconds': lastUpdateTime,
+        'install_first_seconds': firstInstallTime,
+        'referrer_url': referrerDetails.installReferrer ?? '',
+        'install_begin_timestamp_server_seconds':
+            referrerDetails.installBeginTimestampServerSeconds,
+        'referrer_click_timestamp_server_seconds':
+            referrerDetails.referrerClickTimestampServerSeconds,
+      };
+    } catch(e) {
+      return <String, dynamic>{
+        'build': build,
+        'referrer_click_timestamp_seconds': 0,
+        'install_begin_timestamp_seconds': 0,
+        'google_play_instant': false,
+        'user_agent': userAgent,
+        'install_version': '',
+        'last_update_seconds': lastUpdateTime,
+        'install_first_seconds': firstInstallTime,
+        'referrer_url': '',
+        'install_begin_timestamp_server_seconds': 0,
+        'referrer_click_timestamp_server_seconds': 0,
+      };
+    }
   }
 }

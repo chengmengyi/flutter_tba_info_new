@@ -1,7 +1,7 @@
 name: flutter_tba_info_new
-description: "A new Flutter project."
+description: "flutter_tba_info_new"
 version: 0.0.1
-homepage:
+homepage: https://github.com/chengmengyi/flutter_tba_info_new
 
 environment:
   sdk: ^3.9.2
