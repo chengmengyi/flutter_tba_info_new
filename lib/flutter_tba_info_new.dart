@@ -54,18 +54,6 @@ class FlutterTbaInfoNew {
   Future<bool> isFirebaseTestLab() =>
       FlutterTbaInfoNewPlatform.instance.isFirebaseTestLab();
 
-  // Backend-compatible aliases kept in the requested field naming style.
-  // ignore: non_constant_identifier_names
-  Future<bool> is_emulator() => isEmulator();
-  // ignore: non_constant_identifier_names
-  Future<bool> is_developer() => isDeveloper();
-  // ignore: non_constant_identifier_names
-  Future<bool> is_adb() => isAdb();
-  // ignore: non_constant_identifier_names
-  Future<bool> has_sim() => hasSim();
-  // ignore: non_constant_identifier_names
-  Future<bool> tes_lab() => isFirebaseTestLab();
-
   Future<Map<String, dynamic>> getReferrerMap() async {
     final build = await getBuild();
     final userAgent = await getDefaultUserAgent();
