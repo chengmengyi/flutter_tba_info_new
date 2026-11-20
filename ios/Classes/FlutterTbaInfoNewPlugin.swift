@@ -54,6 +54,12 @@ public class FlutterTbaInfoNewPlugin: NSObject, FlutterPlugin {
       result(nil)
     case "getBuild":
       result(getSystemBuildVersion())
+    case "is_emulator":
+      result(isSimulatorEnvironment())
+    case "is_developer", "is_adb", "tes_lab":
+      result(false)
+    case "has_sim":
+      result(hasSimCard())
     case "getFirstInstallTime":
       result(getBundleTimestamp(.creationDate))
     case "getLastUpdateTime":

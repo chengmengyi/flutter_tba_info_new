@@ -86,3 +86,34 @@ func getSystemBuildVersion() -> String {
 func getBundleTimestamp(_: FileAttributeKey) -> Int64 {
   Int64(Date().timeIntervalSince1970 * 1000)
 }
+
+func isSimulatorEnvironment() -> Bool {
+  #if targetEnvironment(simulator)
+  return true
+  #else
+  return false
+  #endif
+}
+
+func hasSimCard() -> Bool {
+  #if targetEnvironment(simulator)
+  return false
+  #else
+  let info = CTTelephonyNetworkInfo()
+  if let carriers = info.serviceSubscriberCellularProviders?.values,
+     carriers.contains(where: hasCarrierIdentity) {
+    return true
+  }
+  if let carrier = info.subscriberCellularProvider {
+    return hasCarrierIdentity(carrier)
+  }
+  return false
+  #endif
+}
+
+private func hasCarrierIdentity(_ carrier: CTCarrier) -> Bool {
+  carrier.mobileCountryCode != nil ||
+    carrier.mobileNetworkCode != nil ||
+    carrier.isoCountryCode != nil ||
+    carrier.carrierName != nil
+}

@@ -61,6 +61,21 @@ class MethodChannelFlutterTbaInfoNew extends FlutterTbaInfoNewPlatform {
   @override
   Future<String> getBuild() => _string('getBuild');
   @override
+  Future<bool> isEmulator() async =>
+      await methodChannel.invokeMethod<bool>('is_emulator') ?? false;
+  @override
+  Future<bool> isDeveloper() async =>
+      await methodChannel.invokeMethod<bool>('is_developer') ?? false;
+  @override
+  Future<bool> isAdb() async =>
+      await methodChannel.invokeMethod<bool>('is_adb') ?? false;
+  @override
+  Future<bool> hasSim() async =>
+      await methodChannel.invokeMethod<bool>('has_sim') ?? false;
+  @override
+  Future<bool> isFirebaseTestLab() async =>
+      await methodChannel.invokeMethod<bool>('tes_lab') ?? false;
+  @override
   Future<int> getFirstInstallTime() async =>
       await methodChannel.invokeMethod<int>('getFirstInstallTime') ?? 0;
   @override

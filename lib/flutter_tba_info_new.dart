@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:play_install_referrer/play_install_referrer.dart';
 
 import 'flutter_tba_info_new_platform_interface.dart';
@@ -47,6 +46,26 @@ class FlutterTbaInfoNew {
       FlutterTbaInfoNewPlatform.instance.jumpToEmail(email);
   Future<String> getBuild() => FlutterTbaInfoNewPlatform.instance.getBuild();
 
+  Future<bool> isEmulator() => FlutterTbaInfoNewPlatform.instance.isEmulator();
+  Future<bool> isDeveloper() =>
+      FlutterTbaInfoNewPlatform.instance.isDeveloper();
+  Future<bool> isAdb() => FlutterTbaInfoNewPlatform.instance.isAdb();
+  Future<bool> hasSim() => FlutterTbaInfoNewPlatform.instance.hasSim();
+  Future<bool> isFirebaseTestLab() =>
+      FlutterTbaInfoNewPlatform.instance.isFirebaseTestLab();
+
+  // Backend-compatible aliases kept in the requested field naming style.
+  // ignore: non_constant_identifier_names
+  Future<bool> is_emulator() => isEmulator();
+  // ignore: non_constant_identifier_names
+  Future<bool> is_developer() => isDeveloper();
+  // ignore: non_constant_identifier_names
+  Future<bool> is_adb() => isAdb();
+  // ignore: non_constant_identifier_names
+  Future<bool> has_sim() => hasSim();
+  // ignore: non_constant_identifier_names
+  Future<bool> tes_lab() => isFirebaseTestLab();
+
   Future<Map<String, dynamic>> getReferrerMap() async {
     final build = await getBuild();
     final userAgent = await getDefaultUserAgent();
@@ -92,7 +111,7 @@ class FlutterTbaInfoNew {
         'referrer_click_timestamp_server_seconds':
             referrerDetails.referrerClickTimestampServerSeconds,
       };
-    } catch(e) {
+    } catch (e) {
       return <String, dynamic>{
         'build': build,
         'referrer_click_timestamp_seconds': 0,

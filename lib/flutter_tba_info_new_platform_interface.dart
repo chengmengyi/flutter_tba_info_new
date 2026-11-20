@@ -36,6 +36,11 @@ abstract class FlutterTbaInfoNewPlatform extends PlatformInterface {
   Future<String> getIdfv() => throw UnimplementedError();
   Future<void> jumpToEmail(String email) => throw UnimplementedError();
   Future<String> getBuild() => throw UnimplementedError();
+  Future<bool> isEmulator() => throw UnimplementedError();
+  Future<bool> isDeveloper() => throw UnimplementedError();
+  Future<bool> isAdb() => throw UnimplementedError();
+  Future<bool> hasSim() => throw UnimplementedError();
+  Future<bool> isFirebaseTestLab() => throw UnimplementedError();
   Future<int> getFirstInstallTime() => throw UnimplementedError();
   Future<int> getLastUpdateTime() => throw UnimplementedError();
 }
